@@ -1,0 +1,12 @@
+{
+	"arrowParens": "always",
+	"semi": true,
+	"useTabs": true,
+	"trailingComma": "all",
+	"endOfLine": "lf",
+	"singleQuote": true,
+	"quoteProps": "consistent",
+	"bracketSameLine": false,
+	"bracketSpacing": true,
+	"importOrder": ["react", "<THIRD_PARTY_MODULES>", "^@", "^./"]
+}
