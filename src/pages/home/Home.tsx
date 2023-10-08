@@ -1,9 +1,10 @@
-import { useGetCurrencies } from '@services/currency/queries.ts';
+import { Center } from '@mantine/core';
+import CurrencyList from '@containers/currencyList/CurrencyList.tsx';
 
 export default function Home() {
-	const { data: currrencies, isLoading} = useGetCurrencies();
-
-	console.log(currrencies)
-
-	return <div>HOME Page</div>;
+	return (
+		<Center>
+			<CurrencyList />
+		</Center>
+	);
 }

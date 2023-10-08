@@ -14,7 +14,6 @@ const onRequest = (
 	const request = {
 		...config,
 	};
-	console.log('here',API_URL);
 	if (!startsWith(request.url, 'http')) {
 		request.url = `${API_URL}${request.url}`;
 	}
@@ -27,7 +26,6 @@ const onRequestError = (error: AxiosError): Promise<AxiosError> => {
 
 /** Response */
 const onResponse = (response: AxiosResponse): AxiosResponse => {
-	console.info(`[response] [${JSON.stringify(response)}]`);
 	return response;
 };
 

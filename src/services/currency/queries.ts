@@ -9,6 +9,6 @@ export function useGetCurrencies() {
 	return useQuery({
 		queryKey: keys.lists(),
 		queryFn: () => getCurrencies(),
-		select: (data) => data?.data,
+		select: (data) => data?.data?.currencies,
 	});
 }

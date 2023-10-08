@@ -4,14 +4,15 @@ import path from 'path';
 
 const resolvePath = (pwd: string) => path.resolve(__dirname, pwd);
 
-// https://vitejs.dev/config/
 export default defineConfig({
 	server: { port: 3000 },
 	plugins: [react()],
 	resolve: {
 		alias: {
 			'@assets': resolvePath('./src/assets'),
+			'@base': resolvePath('./src/base'),
 			'@configs': resolvePath('./src/configs'),
+			'@containers': resolvePath('./src/containers'),
 			'@layouts': resolvePath('./src/layouts'),
 			'@pages': resolvePath('./src/pages'),
 			'@routers': resolvePath('./src/routers'),
