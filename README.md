@@ -10,5 +10,5 @@ This is a test project - Currency Convertor
 ## Notes
 - No Global State has been used in this project.
 - I'd like to use Zustand instead of Redux.
+- [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
 - It is easy to use like Redux Toolkit.
-- - [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
