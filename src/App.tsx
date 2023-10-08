@@ -1,12 +1,13 @@
-import './App.css';
+import { Suspense } from 'react';
 import { setupAxiosInterceptors } from '@utils/apiHandler/apiHandler.ts';
 import { MantineProvider } from '@mantine/core';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { Suspense } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { routers } from '@routers/routers.tsx';
 import { COLOR_SCHEME } from '@configs/enum.ts';
 import { queryClient } from '@configs/queryClient.ts';
+import '@mantine/core/styles.css';
+import './App.css';
 
 function App() {
 	setupAxiosInterceptors();

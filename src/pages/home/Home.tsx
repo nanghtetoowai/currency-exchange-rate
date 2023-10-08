@@ -1,5 +1,10 @@
-import { API_URL } from '@configs/constant.ts';
+import { Center } from '@mantine/core';
+import CurrencyList from '@containers/currencyForm/CurrencyForm.tsx';
 
 export default function Home() {
-	return <div>HOME Page</div>;
+	return (
+		<Center>
+			<CurrencyList />
+		</Center>
+	);
 }
