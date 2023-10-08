@@ -6,3 +6,20 @@ export const getCurrencies = async () => {
 		params: { access_key: ACCESS_KEY },
 	});
 };
+
+export interface CConvertParams {
+	from: string;
+	to: string;
+	amount: number;
+}
+
+export const convertCurrency = async (data: CConvertParams) => {
+	return await axios.get('/convert', {
+		params: {
+			access_key: ACCESS_KEY,
+			from: data.from,
+			to: data.to,
+			amount: data.amount,
+		},
+	});
+};

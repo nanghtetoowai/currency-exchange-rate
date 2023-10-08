@@ -1,6 +1,9 @@
 import React from 'react';
 import { Divider, NumberInput, Paper, Select, Stack } from '@mantine/core';
-import { useGetCurrencies } from '@services/currency/queries.ts';
+import {
+	useCurrencyConvert,
+	useGetCurrencies,
+} from '@services/currency/queries.ts';
 import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
 import InputGroup from '@base/InputGroup/InputGroup.tsx';
@@ -14,7 +17,7 @@ const formSchema = z.object({
 
 type TFormData = z.infer<typeof formSchema>;
 
-const CurrencyList: React.FC = () => {
+const CurrencyForm: React.FC = () => {
 	const { data: currencies, isLoading } = useGetCurrencies();
 
 	const currencyAcronyms: string[] = currencies && Object.keys(currencies);
@@ -29,8 +32,12 @@ const CurrencyList: React.FC = () => {
 		},
 	});
 
+	const { values } = form;
+
+	const { mutateAsync } = useCurrencyConvert();
+
 	return (
-		<Paper>
+		<Paper shadow="xs" p="md" withBorder>
 			<form>
 				{!isLoading ? (
 					<Stack>
@@ -39,6 +46,17 @@ const CurrencyList: React.FC = () => {
 								hideControls
 								variant="unstyled"
 								{...form.getInputProps('baseValue')}
+								onChange={async (value: number) => {
+									form.setFieldValue('baseValue', value);
+									const response = await mutateAsync({
+										from: values.baseCurrency,
+										to: values.targetCurrency,
+										amount: value,
+									});
+									if (response.data?.result) {
+										form.setFieldValue('targetValue', response.data?.result);
+									}
+								}}
 							/>
 							<Divider orientation="vertical" mx="xs" />
 							<Select
@@ -47,6 +65,17 @@ const CurrencyList: React.FC = () => {
 								variant="unstyled"
 								data={currencyAcronyms}
 								{...form.getInputProps('baseCurrency')}
+								onChange={async (value: string) => {
+									form.setFieldValue('baseCurrency', value);
+									const response = await mutateAsync({
+										from: value,
+										to: values.targetCurrency,
+										amount: values.baseValue,
+									});
+									if (response.data?.result) {
+										form.setFieldValue('targetValue', response.data?.result);
+									}
+								}}
 							/>
 						</InputGroup>
 						<InputGroup>
@@ -63,6 +92,17 @@ const CurrencyList: React.FC = () => {
 								variant="unstyled"
 								data={currencyAcronyms}
 								{...form.getInputProps('targetCurrency')}
+								onChange={async (value: string) => {
+									form.setFieldValue('targetCurrency', value);
+									const response = await mutateAsync({
+										from: values.baseCurrency,
+										to: value,
+										amount: values.baseValue,
+									});
+									if (response.data?.result) {
+										form.setFieldValue('targetValue', response.data?.result);
+									}
+								}}
 							/>
 						</InputGroup>
 					</Stack>
@@ -74,8 +114,8 @@ const CurrencyList: React.FC = () => {
 	);
 };
 
-CurrencyList.displayName = 'CurrencyList';
+CurrencyForm.displayName = 'CurrencyForm';
 
-const MemorizedCurrencyList = React.memo(CurrencyList);
+const MemorizedCurrencyList = React.memo(CurrencyForm);
 
 export default MemorizedCurrencyList;
